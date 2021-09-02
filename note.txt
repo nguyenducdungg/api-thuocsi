@@ -1,0 +1,16 @@
+router 
+modules : +, product
+	  +, auth
+1.Server 
+2.Router
+3.Modules
+
+auth: { /api/auth/sign in (POST))
+
+product { 
+		/api/product (GET) (get many)
+		/api/product/:id (GET) (getone)
+		/api/product (POST) (create)
+		/api/product (PUT)  (update)
+		/api/product/:id (DELETE)
+		
