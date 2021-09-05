@@ -3,7 +3,7 @@ const express = require('express')
 const bodyParser = require('body-parser')
 const app = express()
 
-// const port = 9000
+const port = 9000
 const router = require('./router')
 
 app.use(bodyParser.json())
@@ -20,7 +20,7 @@ app.use((err, req, res, next) => {
     .json({ message, stack })
 })
 
-app.listen(process.env.PORT, (err) => console.log(err || 'Server open at port ' + process.env.PORT))
+app.listen(port, (err) => console.log(err || 'Server open at port ' + port))
 
 
 // // router demo

@@ -8,7 +8,7 @@ const handlers = {
                 pageSize,
                 sortBy, //title, 
                 sort,    //'asc: tang dan' | 'desc : giam dan'  
-                search = '', 
+                search = '',
                 fields = ''
             } = req.query
             pageSize = parseInt(pageSize) || 20
@@ -23,7 +23,7 @@ const handlers = {
             }
             //Lọc
             let fildsArray = fields.split(',').map(field => field.trim())
-            
+
             let items = await productModel
                 .find(conditions, fildsArray)
                 .skip(skip)
@@ -39,16 +39,16 @@ const handlers = {
         try {
             let id = req.params.id
             let item = await productModel.findById(id)
-                .populate('categories', ['title', 'description'])
             res.json(item)
         } catch (err) {
             next(err)
         }
     },
     async create(req, res, next) {
+    
         try {
             let data = req.body // {title: '123', description: '123'}
-            let item = await productModel.create(data) // {_id: '', title, description}
+            let item = await productModel.create(data) 
             res.json(item)
         } catch (err) {
             next(err)
@@ -57,7 +57,8 @@ const handlers = {
     async update(req, res, next) {
         try {
             let data = req.body
-            let id = req.body._id
+            let id = req.params.id
+
             if (!id) {
                 throw new Error(`Require 'id' to update!`)
             }
@@ -68,8 +69,8 @@ const handlers = {
                 { new: true }
             )
             res.json(item)
-        } catch (error) {
-            next(error)
+        } catch (err) {
+            next(err)
         }
     },
     async delete(req, res, next) {

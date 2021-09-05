@@ -1,24 +1,53 @@
-const ADMIN_EMAIL = 'nguyenducdung853@gmail.com';
-const ADMIN_PASSWORD = '123123'
-
+const userProfileModel = require('./model')
 const handlers = {
-    signIn(req, res, next) {
+    async signIn(req, res, next) {
         try {
-            let data = req.body
-
-            let email = String(data.email).trim().toLowerCase()
-            let password = data.password
-
-            if (email != ADMIN_EMAIL || password != ADMIN_PASSWORD) {
-                throw new Error('Wrong email or password!')
+            let { email, password } = req.body
+            if (!email) {
+                throw new Error(`Missing 'email'!`)
             }
+            if (!password) {
+                throw new Error(`Missing 'password'!`)
+            }
+            let user = await userProfileModel.findOne({
+                email: String(email).toLowerCase().trim()
+            })
+            let hasPassword = hasMd5(String(password))
+            if (!user || hasPassword != user.password) {
+                throw new Error(`Wrong email or password`)
+            }
+            //signIn success if here if no error throw
+            // gen ra 1 object chứa thông tin của user
+            let userPayload = user.toObject()
 
-            let user = { email: ADMIN_EMAIL }
-            res.json(user)
+            delete userPayload.password
+            res.json(userPayload)
         } catch (err) {
             next(err)
         }
     }
 }
 
+function hasMd5(string) {
+    return require('crypto')
+        .createHash('md5')
+        .update(string)
+        .digest('hex')
+}
+
 module.exports = handlers
+
+// try {
+//     let user = {
+//         fullName: 'Nguyen Duc Dung',
+//         email: 'nguyenducdung853@gmail.com',
+//         password: hasPassword,
+//         role: ["admin"],
+//     }
+//     let item = await userProfileModel.create(user)
+
+//     res.json(item)
+
+// } catch (err) {
+//     next(err)
+// }
