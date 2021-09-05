@@ -28,7 +28,7 @@ const productShema = new Schema({
         type: String,
         required: [true, `yeu cau description`],
     },
-    //image ?
+    //images
     __v: {
         type: Number,
         select: false,

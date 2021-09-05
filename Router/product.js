@@ -4,17 +4,20 @@ const exprerss = require('express')
 const productHandlers = require('../modules/products')
 const productRouter = new exprerss.Router()
 
-// fileUpload(file) {
-//     const url = this.props.uploadUrl;
-//     let formData = new FormData();
-//     formData.append("uploadfile", file); //Lưu ý tên 'uploadfile' phải trùng với tham số bên Server side
-//     const config = {
-//       headers: {
-//         "Content-Type": "multipart/form-data",
-//       },
-//     };
-//     return axios.post(url, formData, config);
-//   }
+// const storage = multer.diskStorage({
+//     destination: function (req, file, cb) {
+//         cb(null, './server/images')      //you tell where to upload the files,
+//     },
+//     filename: function (req, file, cb) {
+//         cb(null,  'image-' + Date.now() + '.jpg')
+//     }
+// })
+
+// const upload = multer({storage: storage,
+//     onFileUploadStart: function (file) {
+//       console.log(file.originalname + ' is starting ...')
+//     },
+// });
 
 productRouter.get('/', productHandlers.findMany)
 

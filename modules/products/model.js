@@ -6,11 +6,5 @@ const MODEL_NAME = 'products'
 
 const productModel = mongoose.model(MODEL_NAME, productSchema, COLLECTION_NAME)
 
-// productModel.countDocuments()
-// productModel.find()
-// productModel.findOne()
-// productModel.create()
-// productModel.findByIdAndUpdate()
-// productModel.findByIdAndRemove()
 
 module.exports = productModel
