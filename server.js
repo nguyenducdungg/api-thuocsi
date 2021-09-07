@@ -3,13 +3,13 @@ const express = require('express')
 const bodyParser = require('body-parser')
 const app = express()
 
-const port = 9000
+const port = process.env.PORT
 const router = require('./router')
 
 app.use(bodyParser.json())
 
 app.get('/', (req, res) => res.send('Hello from server!'))
-
+app.use("/uploads", express.static("uploads"));
 app.use(router)
 
 app.use((err, req, res, next) => {

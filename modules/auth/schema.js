@@ -23,13 +23,17 @@ const userProfileSchema = new Schema({
         type : String,
         required : true,
     },
-    fullName: {
+    displayName: {
         type : String,
         required : true,
     },
     role: {
         type : String,
         enum : ["admin","user"]
+    },
+    __v: {
+        type: Number,
+        select: false,
     }
 })
 

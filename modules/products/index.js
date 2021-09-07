@@ -1,5 +1,4 @@
 const productModel = require('./model')
-
 const handlers = {
     async findMany(req, res, next) {
         try {
@@ -44,11 +43,10 @@ const handlers = {
             next(err)
         }
     },
-    async create(req, res, next) {
-    
+    async create(req, res) {
         try {
-            let data = req.body // {title: '123', description: '123'}
-            let item = await productModel.create(data) 
+            let data = req.body
+            let item = await productModel.create(data)
             res.json(item)
         } catch (err) {
             next(err)

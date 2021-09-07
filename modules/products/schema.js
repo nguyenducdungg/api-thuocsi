@@ -9,7 +9,7 @@ const productShema = new Schema({
         required: [true, `yeu cau title!`],
     },
     price: {
-        type: String,
+        type: Number,
         required: [true, `yeu cau price`],
     },
     categorySlug: {
@@ -28,7 +28,7 @@ const productShema = new Schema({
         type: String,
         required: [true, `yeu cau description`],
     },
-    //images
+    image: { require: true, type: String },
     __v: {
         type: Number,
         select: false,

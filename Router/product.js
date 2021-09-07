@@ -1,32 +1,35 @@
-const exprerss = require('express')
-// var multer = require('multer')
-// const upload = multer({dest: 'upload/'})
+const express = require('express')
+// const fileUpload = require('express-fileupload')
 const productHandlers = require('../modules/products')
-const productRouter = new exprerss.Router()
+const productRouter = express()
+productRouter.use(express.json())
+const bodyParser = require("body-parser")
+productRouter.use(bodyParser.urlencoded({ extended: true }))
+productRouter.use(bodyParser.json({ type: 'application/json' }))
+productRouter.use(bodyParser.raw())
 
-// const storage = multer.diskStorage({
-//     destination: function (req, file, cb) {
-//         cb(null, './server/images')      //you tell where to upload the files,
-//     },
-//     filename: function (req, file, cb) {
-//         cb(null,  'image-' + Date.now() + '.jpg')
-//     }
-// })
+// productRouter.use(fileUpload())
 
-// const upload = multer({storage: storage,
-//     onFileUploadStart: function (file) {
-//       console.log(file.originalname + ' is starting ...')
-//     },
-// });
+// const upload = multer({ storage: storage });
+
 
 productRouter.get('/', productHandlers.findMany)
 
 productRouter.get('/:id', productHandlers.findOne)
 
-productRouter.post('/', productHandlers.create)
+productRouter.post('/createProduct', productHandlers.create)
+// productRouter.post("/createProduct", upload.single("image"), productHandlers.create)
 
-productRouter.put('/:id',  productHandlers.update)
+productRouter.put('/:id', productHandlers.update)
 
 productRouter.delete('/:id', productHandlers.delete)
 
 module.exports = productRouter
+
+
+
+
+
+
+
+
